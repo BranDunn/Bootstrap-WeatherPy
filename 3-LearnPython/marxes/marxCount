@@ -1,0 +1,3 @@
+marxes = [groucho, Karl, ernie]
+    print marxes.count('ernie')
+    

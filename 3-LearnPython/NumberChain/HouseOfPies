@@ -1,0 +1,14 @@
+print("Welcome to House of Pies! Here are our pies:")
+
+newOrder = "y"
+
+while newOrder == "y":
+
+
+    user_choice = input("Make your selection...(1) Pecan, (2) Apple Crisp, (3) Bean, (4) Banoffee, (5) Black Bun, (6) Blueberry, (7) Buko, (8) Burek,  (9) Tamale, (10) Steak ")
+
+    for a in range(int(user_choice)):
+
+        print("Great! We'll have that " + user_choice + " right out for you.")
+
+newOrder = input("Would you like to order another pie? (y)es or (n)o")

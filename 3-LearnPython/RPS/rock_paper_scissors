@@ -1,0 +1,41 @@
+#incorporate the random library
+import random
+
+#print Title
+print("Let's Play Rock Paper Scissors!")
+
+#specify the 3 options
+options = ["r", "p", "s"]
+
+#computer selection
+computer_choice = random.choice(options)
+
+#user selection
+user_choice = input("Make your Choice: (r)ock, (p)aper, (s)cissors?")
+
+
+#run conditionals
+
+#comp chooses rock options
+if computer_choice == "r" and user_choice == "r":
+    print ("draw")
+if computer_choice == "r" and user_choice == "p":
+    print ("you win! paper wraps rock!")
+if computer_choice == "r" and user_choice == "s":
+    print ("you lose! rock breaks scissors...")
+
+#comp chooses paper options
+if computer_choice == "p" and user_choice == "r":
+    print ("you lose! paper wraps rock...")
+if computer_choice == "p" and user_choice == "p":
+    print ("draw")
+if computer_choice == "p" and user_choice == "s":
+    print ("you win! scissors cut paper!")
+
+#comp chooses rock options
+if computer_choice == "r" and user_choice == "r":
+    print ("draw")
+if computer_choice == "r" and user_choice == "p":
+    print ("you win! paper wraps rock!")
+if computer_choice == "r" and user_choice == "s":
+    print ("you lose! rock breaks scissors...")

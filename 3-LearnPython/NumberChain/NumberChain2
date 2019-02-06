@@ -1,0 +1,15 @@
+user_play = "y"
+
+Start_number = 0 
+
+while user_play =="y":
+
+    user_number = input("How many numbers? ")
+
+    for x in range(start_number, int(user_number) + start_number):
+
+        print(x)
+
+    start_number = start_number + int(user_number)
+
+    user_play = input("continue the chain? "y"es or "n"o")

@@ -1,0 +1,7 @@
+my_name = input("What is your name?")
+neighbor's_name = input("What is your neighbor's name?")
+my_months = input("How many months have you been coding?")
+neighbor's_months = input("How many months has your neighbor been coding?")
+total_months_coded = int(my_months) + int(neighbor's_months)
+print("I am" + my_name +"and my neighbor is " + neighbor's_name)
+print("Together we have been coding for " + str(total_months_coded) = "months!!")

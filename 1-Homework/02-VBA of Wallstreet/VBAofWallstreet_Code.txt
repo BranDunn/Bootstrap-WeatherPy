@@ -1,0 +1,148 @@
+Sub VBAofWallstreet()
+'-------------------------------------------------------
+    
+'make code run through all sheets in workbook
+Dim ws As Worksheet
+Set ws = ActiveSheet
+
+'create color bank
+GreenColor = RGB(0, 128, 0)
+RedColor = RGB(255, 0, 0)
+
+
+    For Each ws In Worksheets
+    
+        'autofit column widths and bold headings
+        Dim c As Integer
+        For c = 1 To 20
+            ws.Columns(c).AutoFit
+            ws.Cells(1, c).Font.Bold = True
+        Next c
+    
+        'display the ticker symbol to coincide with the total volume
+        Dim TickerSymbol As String
+        
+        'set initial variable to hold total volume per year
+        Dim YearVolume As Double
+            YearVolume = 0
+            
+        'set yearly change variable
+        Dim YearlyChange As Double
+        
+        'set percent change as variable
+        Dim PercentChange As Double
+        
+        'declare max increase, decrease, and volume variable types
+        Dim MaxIncrease As Double
+        Dim MaxDecrease As Double
+        Dim MaxVolume As Double
+            
+        'Keep location for each ticker symbol, volume total, and year in the tables
+        'add headings to summary table columns
+        ws.Cells(1, 10).Value = "Ticker"
+        ws.Cells(1, 11).Value = "Total Volume"
+        ws.Cells(1, 12).Value = "% Change"
+        ws.Cells(1, 13).Value = "Yearly Change"
+        ws.Cells(1, 15).Value = "Greatest Increase"
+        ws.Cells(1, 16).Value = "Ticker"
+        ws.Cells(1, 17).Value = "Greatest Decrease"
+        ws.Cells(1, 18).Value = "Ticker"
+        ws.Cells(1, 19).Value = "Greatest Total Volume"
+        ws.Cells(1, 20).Value = "Ticker"
+        
+        Dim Summary_Table_Row As Integer
+            Summary_Table_Row = 2
+            
+            
+            'loop through rows
+            Dim i As Double
+            LastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+            For i = 2 To LastRow
+                         
+                'check that I am still within the same Ticker Symbol
+                If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+                    'Set the ticker symbol
+                    TickerSymbol = ws.Cells(i, 1).Value
+                    
+                    'Add to Volume total
+                    YearVolume = YearVolume + ws.Cells(i, 7).Value
+                    
+                    'calculate yearly change
+                    YearlyChange = ws.Cells(i, 3).Value - ws.Cells(i, 6).Value
+                    
+                    'calculate percent change
+                    PercentChange = (YearlyChange / ws.Cells(i, 3).Value) * 100
+                    
+                    'Print the ticker symb in the summary table
+                    ws.Range("J" & Summary_Table_Row).Value = TickerSymbol
+                    
+                    'print the volume total to summary table
+                    ws.Range("K" & Summary_Table_Row).Value = YearVolume
+                    
+                    'print the % change to summary table and format as %
+                    ws.Range("L" & Summary_Table_Row).Value = PercentChange
+                    
+                    'print the yearly change to summary table
+                    ws.Range("M" & Summary_Table_Row).Value = YearlyChange
+                
+                    'Add one to the summary table row
+                    Summary_Table_Row = Summary_Table_Row + 1
+                    
+                    'Reset the volume total to 0
+                    YearVolume = 0
+                
+                'If next row is the same brand...
+                Else
+            
+                    'add to YearVolume
+                    YearVolume = YearVolume + ws.Cells(i, 7).Value
+                
+                End If
+            
+                'color code positive and negative changes in yearly change column
+                If ws.Cells(i, 13).Value > 0 Then
+                    ws.Cells(i, 13).Interior.Color = GreenColor
+                    
+                ElseIf ws.Cells(i, 13).Value < 0 Then
+                    ws.Cells(i, 13).Interior.Color = RedColor
+                    
+                End If
+            
+            Next i
+            
+            'create second table that loops through table 1
+            Dim j As Double
+            LRow = ws.Cells(ws.Rows.Count, "J").End(xlUp).Row
+            For j = 2 To LRow
+            
+                'Find Max %Increase
+                MaxIncrease = Application.WorksheetFunction.Max(ws.Cells(j, 12).Value)
+                
+                'find Max %Decrease
+                MaxDecrease = Application.WorksheetFunction.Min(ws.Cells(j, 12).Value)
+                
+                'find Greatest total volume
+                MaxTotVolume = Application.WorksheetFunction.Max(ws.Cells(j, 11).Value)
+                
+                'make table2
+                'place max increaase in table2
+                ws.Cells(2, 15).Value = MaxIncrease
+                
+                'place max decrease in table2
+                ws.Cells(2, 17).Value = MaxDecrease
+                
+                'place max total volume in table2
+                ws.Cells(2, 19).Value = MaxTotVolume
+                
+                    'format %change column as percentage
+                    ws.Range("L" & Summary_Table_Row).NumberFormat = "0.00%"
+                    ws.Cells(2, 15).NumberFormat = "0.00%" 'format Max Increase data as %
+                    ws.Cells(2, 17).NumberFormat = "0.00%" 'format Max Decrease data as %
+              
+            Next j
+            
+    Next ws
+
+End Sub
+
+

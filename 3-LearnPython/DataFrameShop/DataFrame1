@@ -1,0 +1,6 @@
+frame_df = pd.DataFrame({
+    Frame = [Omate, Classical, Modern, Wood, Cardboard],
+    Price = [1.0, 10.0, 7.5, 8.0, 9.7],
+    Sales = [25, 35, 45, 55, 12]
+})
+frame_df

@@ -1,0 +1,15 @@
+allowance = 5
+
+candyCart = []
+
+store = {
+    [0] "snickers",
+    [1] "twix",
+    [2] "kitkat",
+    [3] "payday",
+    [4] "babyruth",
+    [5] "milkyway"
+}
+
+print(store)
+print(store [0])

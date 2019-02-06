@@ -1,0 +1,21 @@
+import os
+import csv
+
+csvpath = os.path.join('..', 'Resources', 'netflix_ratings.csv')
+
+user_search = input("Which Netflix video are you looking for? :")
+
+with open(csvpath, newline = ' ') as csvfile:
+    csvreader = csv.reader(csvfile, delimiter = ',')
+
+    found = False
+
+    csv_header = next(csvreader)
+    print(f"CSV Header: {csv_header}")
+
+    for row in csvreader:
+        if row[0] == user_search:
+            print(row[0]) + " is rated " + row[1] + " with a rating of " + row[5]
+    
+
+\
